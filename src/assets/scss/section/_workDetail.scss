@@ -1,0 +1,43 @@
+.workDetailContainer {
+  width: 80%;
+  height: 80vh;
+  margin: 0 auto;
+  padding-top: 20px;
+  position: relative;
+
+  .workDetailFlex {
+    @include flex-between;
+
+    .WorkDetailPrev {
+      color: red;
+    }
+  }
+  .workDetailTitle {
+    margin: 20px 0;
+  }
+
+  .workDetailContents {
+    height: 200px;
+  }
+
+  .workDetailModify {
+    width: 50%;
+    height: 50px;
+    position: absolute;
+    bottom: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .workDetailViewComments {
+    width: 100%;
+    padding: 10px;
+
+    text-align: center;
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top: 1px solid #999;
+  }
+}

@@ -1,5 +1,13 @@
+import Header from "../components/Header";
+import WorkAdd from "../components/WorkAdd";
+
 const WorkAddView = () => {
-  return <div>WorkAddView</div>;
+  return (
+    <>
+      <Header />
+      <WorkAdd />;
+    </>
+  );
 };
 
 export default WorkAddView;

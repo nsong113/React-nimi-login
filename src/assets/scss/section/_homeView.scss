@@ -1,0 +1,25 @@
+.homeContainer {
+  width: 80%;
+  height: 60%;
+  margin: 0 auto;
+
+  @include position-center;
+
+  .homeH1 {
+    margin-bottom: 20px;
+  }
+
+  .homeDiv {
+    @include flex-between;
+    width: 100%;
+    height: 100px;
+    line-height: 60px;
+    padding: 20px;
+
+    border: 2px dotted black;
+    margin-bottom: 10px;
+    &:hover {
+      box-shadow: 1px 1px 5px #bbb;
+    }
+  }
+}

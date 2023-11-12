@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getTodos, postTodos } from "../api/todos";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 const Login = ({ title }) => {
   const [id, setId] = useState("");
@@ -49,31 +51,70 @@ const Login = ({ title }) => {
   }, [idValid, pwValid]);
 
   //비동기 통신 아이디 조회 - get
-  const getTodos = async () => {
-    try {
-      const { data } = await axios.get(import.meta.env.VITE_APP_MOCK_SERVER);
-      console.log("data", data);
-      setTodos(data);
-    } catch (error) {
-      console.log("error", error);
+  // const getTodos = async () => {
+  //   try {
+  //     const { data } = await axios.get(import.meta.env.VITE_APP_MOCK_SERVER);
+  //     console.log("data", data);
+  //     setTodos(data);
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // };
+
+  // //비동기 통신 회원가입 - post
+  // const postTodos = async () => {
+  //   try {
+  //     const { data } = await axios.post("http://3.38.191.164/", {
+  //       username: user.username,
+  //       password: user.password,
+  //     });
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // };
+
+  //리엑트쿼리 관련 코드
+  const queryClient = useQueryClient();
+  const mutation = useMutation(postTodos, {
+    onSuccess: () => {
+      // queryClient.invalidateQuries('')
+      console.log("포스트성공하였습니다.");
+    },
+  });
+
+  const { getIsLoading, getIsError, getData } = useQuery("getTodos", getTodos);
+  // const { postIsLoading, postIsError, postData } = useQuery(
+  //   "postTodos",
+  //   postTodos
+  // );
+
+  const getTodoQuery = () => {
+    if (getIsLoading === true) {
+      return console.log("get 로딩중입니다.");
     }
+
+    if (getIsError) {
+      return console.log("get 오류 발생");
+    }
+
+    console.log("쿼리결과", getData);
   };
 
-  //비동기 통신 회원가입 - post
-  const postTodos = async () => {
-    try {
-      const { data } = await axios.post("http://3.38.191.164/", {
-        username: user.username,
-        password: user.password,
-      });
-      console.log(data);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  // const postTodosQuery = () => {
+  //   if (postIsLoading === true) {
+  //     return console.log("post 로딩중입니다.");
+  //   }
+
+  //   if (postIsError) {
+  //     return console.log("post 오류 발생");
+  //   }
+
+  //   console.log("쿼리결과", postData);
+  // };
 
   const axiosOnclickHandler = (title) => {
-    title === "로그인" ? getTodos() : postTodos();
+    title === "로그인" ? getTodoQuery() : mutation.mutate(user);
   };
 
   // const onSubmitHandler = (e, titale) => {
