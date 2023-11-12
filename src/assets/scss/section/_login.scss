@@ -5,17 +5,37 @@
   height: 50vh;
   margin: 0 auto;
 
+  .ErrorMsg {
+    font-size: 13px;
+    color: red;
+  }
+
+  .h3login {
+    margin-bottom: 10px;
+  }
+
   .inputID {
     width: 40%;
+    height: 35px;
+    outline: none;
   }
+
   .buttonContainer {
     @include flex-between;
     width: 40%;
     height: auto;
 
     .button {
-      width: 100px;
-      height: 20px;
+      cursor: pointer;
+      width: 150px;
+      height: 40px;
+      background-color: rgb(255, 218, 199);
+      outline: none;
+
+      .disabled {
+        background-color: white;
+        color: black;
+      }
     }
   }
 }
