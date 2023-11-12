@@ -1,0 +1,21 @@
+.loginContainer {
+  @include position-center;
+
+  width: 80%;
+  height: 50vh;
+  margin: 0 auto;
+
+  .inputID {
+    width: 40%;
+  }
+  .buttonContainer {
+    @include flex-between;
+    width: 40%;
+    height: auto;
+
+    .button {
+      width: 100px;
+      height: 20px;
+    }
+  }
+}
