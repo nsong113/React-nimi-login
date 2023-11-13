@@ -1,9 +1,14 @@
-import React from "react";
 import { BiSolidHomeHeart } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
+
+  const logoutOnClickHandler = () => {
+    localStorage.token = "";
+    console.log("로그아웃", localStorage.token);
+    navigate("/login");
+  };
 
   return (
     <div className="headerContainer">
@@ -11,7 +16,7 @@ const Header = () => {
         style={{ fontSize: 30 }}
         onClick={() => navigate("/")}
       />
-      <h3>로그아웃</h3>
+      <h3 onClick={logoutOnClickHandler}>로그아웃</h3>
     </div>
   );
 };

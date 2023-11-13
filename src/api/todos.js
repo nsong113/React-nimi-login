@@ -1,41 +1,80 @@
 //axios 들어가는 모든 모듈
 import axios from "axios";
+import { useState } from "react";
 
-//get 조회
-const getTodos = async () => {
-  const res = await axios.get(import.meta.env.VITE_APP_MOCK_SERVER);
-  //   console.log();
-  return res.data;
+// const [sta÷tus, setStatus] = useState("아직인증안됨");
+
+//회원가입
+const addUser = async ({ id, pw }) => {
+  try {
+    const res = await axios.post(
+      `${import.meta.env.VITE_APP_MOCK_SERVER}/register`,
+      {
+        id: id,
+        password: pw,
+      }
+    );
+    const token = res.data.token;
+    localStorage.setItem("token", token);
+    alert("회원가입에 성공하였습니다. ");
+    return res.status;
+  } catch (error) {
+    alert(error.response.data.message);
+  }
 };
 
-//  const getTodos = async () => {
-//     try {
-//       const { data } = await axios.get(import.meta.env.VITE_APP_MOCK_SERVER);
-//       console.log("data", data);
-//       setTodos(data);
-//     } catch (error) {
-//       console.log("error", error);
-//     }
-//   };
+//post 로그인
+const loginUser = async ({ id, pw }) => {
+  try {
+    const res = await axios.post(
+      `${import.meta.env.VITE_APP_MOCK_SERVER}/login`,
+      {
+        id: id,
+        password: pw,
+      }
+    );
+    // console.log(res);
+    const token = res.data.token;
 
-const postTodos = async (user) => {
-  const res = await axios.post(import.meta.env.VITE_APP_MOCK_SERVER, {
-    username: user.username,
-    password: user.password,
-  });
-  return res.data;
+    localStorage.setItem("token", token);
+    // document.cookies("token", token);
+
+    alert("로그인에 성공하였습니다. ");
+    return res.status;
+  } catch (error) {
+    alert(error.response.data.message);
+  }
 };
 
-// const postTodos = async () => {
-//   try {
-//     const { data } = await axios.post("http://3.38.191.164/", {
-//       username: user.username,
-//       password: user.password,
-//     });
-//     console.log(data);
-//   } catch (error) {
-//     console.log("error", error);
-//   }
-// };
+//인가 get
+const getData = async () => {
+  const accessToken = localStorage.token;
+  console.log("accesstoken", accessToken);
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_APP_MOCK_SERVER}/user`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    console.log("response", response);
+    //뭘 어디에 저장해야 하지?
+    // localStorage.setItem(response.data.data);
+  } catch (error) {
+    console.log(error.response.data.message);
+  }
+};
 
-export { getTodos, postTodos };
+//work/add에서 추가한 todo db에 post 요청
+
+const sendTodo = async () => {
+  const res = await axios.post(
+    `${import.meta.env.VITE_APP_MOCK_SERVER}/user`,
+    {}
+  );
+};
+
+export { addUser, loginUser, getData };
