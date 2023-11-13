@@ -68,13 +68,4 @@ const getData = async () => {
   }
 };
 
-//work/add에서 추가한 todo db에 post 요청
-
-const sendTodo = async () => {
-  const res = await axios.post(
-    `${import.meta.env.VITE_APP_MOCK_SERVER}/user`,
-    {}
-  );
-};
-
 export { addUser, loginUser, getData };
