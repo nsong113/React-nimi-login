@@ -1,22 +1,17 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { addUser, loginUser, getData } from "../api/todos";
 
 const Login = ({ title }) => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
-  const [user, setUser] = useState({
-    username: "",
-    password: "",
-  });
+
   const [idValid, setIdValid] = useState(false);
   const [pwValid, setPwValid] = useState(false);
   const [notAllow, setNotAllow] = useState(true);
   const navigate = useNavigate();
-  const [todos, setTodos] = useState(null);
 
   //네비게이션 핸들러
   const navigatorHandler = (title) => {
@@ -83,11 +78,9 @@ const Login = ({ title }) => {
   // };
 
   //post 요청 - 회원가입
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const SignupMutation = useMutation(addUser, {
     onSuccess: (res) => {
-      //회원가입이 성공 시 실행할 아이
-      queryClient.invalidateQueries(id, pw);
       setId("");
       setPw("");
       if (res === 201) {
@@ -99,7 +92,6 @@ const Login = ({ title }) => {
   //post 요청 - 로그인
   const LoginMutation = useMutation(loginUser, {
     onSuccess: (res) => {
-      queryClient.invalidateQueries(id, pw);
       setId("");
       setPw("");
       if (res === 201) {

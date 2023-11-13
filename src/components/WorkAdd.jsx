@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { addPlanTodos } from "../api/todosContent";
+import { useMutation, useQueryClient } from "react-query";
 
 const WorkAdd = () => {
   //input을 value와 onchange로 엮어준다.
@@ -6,19 +8,41 @@ const WorkAdd = () => {
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [plan, setPlan] = useState({
+    name,
+    title,
+    content,
+  });
+  // console.log("plan", plan);
 
   const onChangeNameHandler = (e) => {
     setName(e.target.value);
+    setPlan({ ...plan, name: e.target.value });
   };
   const onChangeTitleHandler = (e) => {
     setTitle(e.target.value);
+    setPlan({ ...plan, title: e.target.value });
   };
   const onChangeContentHandler = (e) => {
     setContent(e.target.value);
+    setPlan({ ...plan, content: e.target.value });
   };
 
+  //plan추가 post 요청
+  const queryClient = useQueryClient();
+  const addPlanMutation = useMutation(addPlanTodos, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(plan);
+      setName("");
+      setTitle("");
+      setContent("");
+    },
+  });
+
+  //plan 추가 변경 요청
   const onSubmitHandler = (e) => {
     e.preventDefault();
+    addPlanMutation.mutate(plan);
   };
 
   return (

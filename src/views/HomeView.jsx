@@ -1,10 +1,18 @@
-import React from "react";
+import { useEffect } from "react";
 import Header from "../components/Header";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 const HomeView = () => {
   const navigate = useNavigate();
+
+  //만약 토큰이 없으면 로그인페이지로 랜딩 배꿔주기
+  useEffect(() => {
+    if (!sessionStorage.token) {
+      return navigate("/login");
+    }
+  }, []);
+
   const moveToWorkAdd = () => {
     navigate("/work/add");
   };

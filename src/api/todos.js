@@ -1,8 +1,4 @@
-//axios 들어가는 모든 모듈
 import axios from "axios";
-import { useState } from "react";
-
-// const [sta÷tus, setStatus] = useState("아직인증안됨");
 
 //회원가입
 const addUser = async ({ id, pw }) => {
@@ -36,7 +32,10 @@ const loginUser = async ({ id, pw }) => {
     // console.log(res);
     const token = res.data.token;
 
-    localStorage.setItem("token", token);
+    //세션스토리지, 쿠키
+    //세션스토리지랑 로컬, 쿠키의 차이 알아보기
+    sessionStorage.setItem("token", token);
+    // localStorage.setItem("token", token);
     // document.cookies("token", token);
 
     alert("로그인에 성공하였습니다. ");
@@ -60,7 +59,7 @@ const getData = async () => {
         },
       }
     );
-    console.log("response", response);
+    // console.log("response", response);
     //뭘 어디에 저장해야 하지?
     // localStorage.setItem(response.data.data);
   } catch (error) {
