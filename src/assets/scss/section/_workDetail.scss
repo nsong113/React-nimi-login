@@ -40,4 +40,76 @@
     transform: translateX(-50%);
     border-top: 1px solid #999;
   }
+
+  .editTextArea {
+    width: 50%;
+    height: 30vh;
+    padding: 20px;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.commentModal {
+  transform: translateY(100%);
+  background-color: var(--subBg100);
+  width: 100%;
+  height: 500px;
+  padding: 20px;
+  &.hide {
+    transform: translateY(100%);
+    transition: 1.5s;
+  }
+  &.show {
+    transform: translateY(-30%);
+    transition: 1.5s;
+  }
+  .viewCommentFlex {
+    width: 100%;
+    height: 150px;
+
+    .viewCommentName {
+      width: 30%;
+      height: 30px;
+      padding: 5px;
+    }
+    .viewCommentContent {
+      width: 100%;
+      height: 80px;
+      padding: 5px;
+    }
+
+    .commentButton {
+      width: 100px;
+      height: 30px;
+    }
+  }
+
+  .flexComments {
+    @include flex-between;
+
+    .viewCommentIS,
+    .viewCommentNo {
+      width: 100%;
+      height: 70px;
+
+      .viewCommentIsTitle {
+        font-size: 21px;
+        margin-bottom: 5px;
+      }
+    }
+
+    .buttons {
+      @include flex-between;
+      width: 100px;
+      height: 50px;
+
+      .button {
+        width: 50px;
+        height: 40px;
+      }
+    }
+  }
 }

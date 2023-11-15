@@ -5,7 +5,7 @@ const WorkDetailView = () => {
   return (
     <div>
       <Header />
-      <WorkDetail />
+      <WorkDetail button={"수정"} />
     </div>
   );
 };

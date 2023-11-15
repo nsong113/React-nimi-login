@@ -1,80 +1,202 @@
-import { useQuery } from "react-query";
-import { readPlanTodos } from "../api/todosContent";
+import { useMutation, useQuery, QueryClient } from "react-query";
+import { readPlanTodos, patchPlanTodos } from "../api/todosContent";
 import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { addComment } from "../api/todosContent";
 
-const WorkDetail = () => {
+const WorkDetail = ({ button }) => {
   const param = useParams();
   const navigate = useNavigate();
-
-  const { isLoading, isError, data } = useQuery("readPlanTodos", readPlanTodos);
-
-  if (isLoading) {
-    return console.log("workDetail로딩중");
-  }
-
-  if (isError) {
-    return console.log("workDetail 에러남요");
-  }
-
-  let work = "";
-  data.forEach((element, i) => {
-    const findData = data[i];
-    console.log("findData", findData);
-    if (findData.id === parseInt(param.id)) {
-      return (work = findData);
-    }
+  const queryClient = new QueryClient();
+  const [stateData, setStateData] = useState({
+    name: "",
+    title: "",
+    content: "",
+    id: 0,
   });
+  const modalRef = useRef();
+
+  const workEditMutation = useMutation(patchPlanTodos, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("readPlanTodos");
+    },
+  });
+
+  const { isLoading, isError, data } = useQuery(
+    "readPlanTodos",
+    readPlanTodos,
+    {
+      onSuccess: (data) => {
+        const foundData = data.find((item) => item.id === parseInt(param.id));
+
+        if (foundData) {
+          setStateData(foundData);
+        } else {
+          console.log("foundData 찾을 수 없습니다.");
+        }
+
+        // console.log("stateData", stateData);
+      },
+    }
+  );
+
   // console.log("work", work);
   const goPrevHandler = () => {
     navigate(-1);
   };
 
-  const goWoekEditPage = () => {
-    navigate(`/works/${work.id}/edit`);
+  const goWorkEditPage = () => {
+    navigate(`/works/${stateData.id}/edit`);
+  };
+
+  const onChangeWorkEditHandler = (e) => {
+    setStateData({ ...stateData, content: e.target.value });
+    // console.log("stateData2", stateData);
+  };
+  ////////  ////////  ////////  ////////  ////////  ////////  ////////
+
+  const onClickWorkEditHandler = (stateData, id) => {
+    workEditMutation.mutate({ stateData, id });
+    // workEditMutation.isLoading ? "workEditMutation 로딩중" : "";
+  };
+  ////////  ////////  ////////  ////////  ////////  ////////  ////////
+
+  const viewCommentHandler = () => {
+    modalRef.current.classList.add("show");
   };
 
   return (
     <div className="workDetailContainer">
       <div className="workDetailFlex">
-        <h3 className="workDetailH3">id: {work.id}</h3>
+        <h3 className="workDetailH3">id: {stateData.id}</h3>
+
         <p className="WorkDetailPrev" onClick={goPrevHandler}>
           이전으로
         </p>
       </div>
-      <h1 className="workDetailTitle"> {work.title} </h1>
-      <p className="workDetailContents">{work.content}</p>
-      <button className="workDetailModify" onClick={goWoekEditPage}>
-        수정{" "}
+      <h1 className="workDetailTitle"> {stateData.title} </h1>
+
+      {button === "수정" ? (
+        <p className="workDetailContents">{stateData.content}</p>
+      ) : (
+        <textarea
+          value={stateData.content}
+          rows={10}
+          cols={100}
+          className="editTextArea"
+          onChange={onChangeWorkEditHandler}
+        />
+      )}
+
+      <button
+        className="workDetailModify"
+        onClick={() => {
+          button === "수정"
+            ? goWorkEditPage()
+            : onClickWorkEditHandler(stateData, stateData.id);
+        }}
+      >
+        {button}
       </button>
-      <div className="workDetailViewComments">눌러서 댓글보기</div>
+
+      {button === "수정" ? (
+        <div className="workDetailViewComments" onClick={viewCommentHandler}>
+          눌러서 댓글보기
+        </div>
+      ) : null}
+      <ViewComment modalRef={modalRef} />
     </div>
   );
 };
 
-const viewComment = () => {
+//슬라이드 모달 창
+const ViewComment = ({ modalRef }) => {
+  const [name, setName] = useState("");
+  const [content, setContent] = useState("");
+  const [comments, setComments] = useState({
+    name: "",
+    content: "",
+  });
+
+  const closeModalHandler = () => {
+    modalRef.current.classList.remove("show");
+    modalRef.current.classList.add("hide");
+  };
+
+  const onChangeNameHandler = (e) => {
+    setName(e.target.value);
+  };
+
+  const onChangeContentHandler = (e) => {
+    setContent(e.target.value);
+  };
+
+  const onCLickAddCommentHandler = (name, content) => {
+    setComments({
+      name,
+      content,
+    });
+  };
+
+  useEffect(() => {
+    onCLickAddCommentHandler();
+  }, [content]);
+
   return (
-    <>
-      <div className="workDetailViewComments">눌러서 댓글내리기</div>
+    <div className="commentModal " ref={modalRef}>
       <div className="viewCommentFlex">
         <input
           type="text"
           placeholder="이름 (5글자 이내)"
           className="viewCommentName"
-        />
-        <input
+          value={name}
+          onChange={onChangeNameHandler}
+        />{" "}
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button
+          className="commentButton"
+          onClick={() => onCLickAddCommentHandler(name, content)}
+        >
+          댓글추가
+        </button>
+        <br /> <br />
+        <textarea
           type="text"
           placeholder="댓글을 추가하세요. (100자이내)"
           className="viewCommentContent"
+          value={content}
+          onChange={onChangeContentHandler}
         />
       </div>
-      <div className="viewCommentNo">
-        <p>댓글이 없네요.</p>
+
+      {comments.content ? (
+        // console.log(comments)
+        comments.map((item) => {
+          // return (
+          //   <>
+          //     <div className="flexComments">
+          //       <div className="viewCommentIS">
+          //         <p className="viewCommentIsTitle">{item.name}</p>
+          //         <p className="vㅋiewCommentIsContents">{item.content}</p>
+          //       </div>
+          //       <div className="buttons">
+          //         <button className="button">수정</button>
+          //         <button className="button">삭제</button>
+          //       </div>
+          //     </div>
+          //   </>
+          // );
+        })
+      ) : (
+        <div className="viewCommentNo">
+          <p>댓글이 없네요.</p>
+        </div>
+      )}
+
+      <div className="workDetailViewComments" onClick={closeModalHandler}>
+        눌러서 댓글내리기
       </div>
-      <div className="viewCommentIS">
-        <p className="viewCommentIsTitle">title</p>
-        <p className="viewCommentIsContents">contents</p>
-      </div>
-    </>
+    </div>
   );
 };
 
