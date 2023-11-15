@@ -37,8 +37,8 @@
 
 ## 미리보기
 
-<img src="./public/final1.png" width="40%" height="30%" ></img>
-<img src="./public/final5.png" width="40%" height="30%" ></img>
+<img src="./public/final1.png" width="60%"  ></img>
+<img src="./public/final5.png" width="60%"  ></img>
 
 ---
 
