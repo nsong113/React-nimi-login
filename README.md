@@ -37,6 +37,9 @@
 
 ## 미리보기
 
+<img src="./public/final1.png" width="40%" height="30%" ></img>
+<img src="./public/final5.png" width="40%" height="30%" ></img>
+
 ---
 
 ### 1. 특정 유저 (예: 비로그인 유저)의 페이지 접근을 제한하기 위한 전략이나 방식은 무엇이었나요?
