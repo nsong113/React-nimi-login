@@ -1,29 +1,29 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import { addUser, loginUser, getData } from "../api/todos";
 
+//로그인 로그아웃 같은 컴포넌트 사용 -> 각각 페이지에서 보낼 때 title에 로그인인지 로그아웃인지 담아서 보냄
 const Login = ({ title }) => {
+  const navigate = useNavigate();
+
+  //아이디 패스워드 input value를 위한 state
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
 
+  //로그인 유효성검사를 위한 세팅
   const [idValid, setIdValid] = useState(false);
   const [pwValid, setPwValid] = useState(false);
-  const [notAllow, setNotAllow] = useState(true);
-  const navigate = useNavigate();
 
-  //네비게이션 핸들러
+  //true되면 로그인 disabled 풀림
+  const [notAllow, setNotAllow] = useState(true);
+
+  //네비게이션 핸들러 => 타이틀에 따라 다르게 네비게이션 작동
   const navigatorHandler = (title) => {
     title === "로그인" ? navigate("/register") : navigate("/login");
   };
 
-  //마운트 alert,
-  // useEffect(() => {
-  //   alert("로그인이 필요합니다. 👻");
-  // }, []);
-
-  //onChangeHandler & 유효성검사
+  //로그인 input onChangeHandler & 유효성검사
   const onChangeIdHandler = (e) => {
     setId(e.target.value);
     /@/.test(id) ? setIdValid(true) : setIdValid(false);
@@ -38,62 +38,25 @@ const Login = ({ title }) => {
     idValid && pwValid && setNotAllow(false);
   }, [idValid, pwValid]);
 
-  //리엑트쿼리 관련 코드
-  // const queryClient = useQueryClient();
-  // const mutation = useMutation(postTodos, {
-  //   onSuccess: () => {
-  //     // queryClient.invalidateQuries('')
-  //     console.log("포스트성공하였습니다.");
-  //   },
-  // });
-
-  // const { getIsLoading, getIsError, getData } = useQuery("getTodos", getTodos);
-  // // const { postIsLoading, postIsError, postData } = useQuery(
-  // //   "postTodos",
-  // //   postTodos
-  // // );
-
-  // const getTodoQuery = () => {
-  //   if (getIsLoading === true) {
-  //     return console.log("get 로딩중입니다.");
-  //   }
-
-  //   if (getIsError) {
-  //     return console.log("get 오류 발생");
-  //   }
-
-  // console.log("쿼리결과", getData);
-  //}
-
-  // const postTodosQuery = () => {
-  //   if (postIsLoading === true) {
-  //     return console.log("post 로딩중입니다.");
-  //   }
-
-  //   if (postIsError) {
-  //     return console.log("post 오류 발생");
-  //   }
-
-  //   console.log("쿼리결과", postData);
-  // };
-
-  //post 요청 - 회원가입
-  // const queryClient = useQueryClient();
+  //쿼리 post 요청 뮤테이션 - 회원가입
   const SignupMutation = useMutation(addUser, {
     onSuccess: (res) => {
       setId("");
       setPw("");
+      //respond가 201로 오면 성공 -> 로그인페이지로 이동
+      //cf) return res.status를 리턴받음
       if (res === 201) {
         navigate("/login");
       }
     },
   });
 
-  //post 요청 - 로그인
+  //쿼리 post 요청 뮤테이션 - 로그인
   const LoginMutation = useMutation(loginUser, {
     onSuccess: (res) => {
       setId("");
       setPw("");
+      //res.statu가 201일 경우 홈으로 이동 + getData(인가)
       if (res === 201) {
         getData();
         navigate("/");
@@ -101,23 +64,16 @@ const Login = ({ title }) => {
     },
   });
 
+  //쿼리 뮤테이션 사용
   const axiosOnclickHandler = (title) => {
     title === "로그인"
       ? LoginMutation.mutate({ id, pw })
       : SignupMutation.mutate({ id, pw });
   };
 
-  // const onSubmitHandler = (e, titale) => {
-  //   e.preventDefault();
-  //   console.log(e);
-  //   title === "로그인" ? getTodos() : postTodos();
-  // };
-
   return (
     <div className="loginContainer">
-      <div
-      // onSubmit={() => onSubmitHandler(e, title)}
-      >
+      <div>
         <h1>{title}하기</h1> <br />
         <div>
           <h3 className="h3login">아이디 - username</h3>

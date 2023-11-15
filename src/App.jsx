@@ -1,5 +1,4 @@
-import "./App.css";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginView from "./views/LoginView";
 import SignupView from "./views/SignupView";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -8,8 +7,8 @@ import WorkAddView from "./views/WorkAddView";
 import WorksView from "./views/WorksView";
 import WorkDetailView from "./views/WorkDetailView";
 import WorkEditView from "./views/WorkEditView";
-import { useEffect } from "react";
 
+//쿼리 클라이언트를 사용하기 위한 세팅 + QueryClientProvider로 주입
 const queryClient = new QueryClient();
 
 function App() {

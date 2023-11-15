@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const HomeView = () => {
   const navigate = useNavigate();
 
-  //만약 토큰이 없으면 로그인페이지로 랜딩 배꿔주기
+  //만약 토큰이 없으면 로그인페이지로 랜딩 배꿔주기 (로그인안한 사람이면 로그인부터 시키기)
   useEffect(() => {
     if (!sessionStorage.token) {
       return navigate("/login");

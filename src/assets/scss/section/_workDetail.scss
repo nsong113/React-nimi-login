@@ -4,6 +4,7 @@
   margin: 0 auto;
   padding-top: 20px;
   position: relative;
+  overflow: hidden;
 
   .workDetailFlex {
     @include flex-between;

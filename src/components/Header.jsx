@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
 
+  //로그아웃기능 (토큰을 초기화 시키기 + 로그인으로 페이지 이동)
   const logoutOnClickHandler = () => {
     localStorage.token = "";
     console.log("로그아웃", localStorage.token);

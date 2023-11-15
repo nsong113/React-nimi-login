@@ -3,18 +3,19 @@ import { addPlanTodos } from "../api/todosContent";
 import { useMutation, useQueryClient } from "react-query";
 
 const WorkAdd = () => {
-  //input을 value와 onchange로 엮어준다.
-  //추가 버튼을 누르면 onclick으로 db에 post 요청을 보낸다.
+  //1. 인풋창에 무엇인가를 입력하고 보여준다 = input을 vlaue와 onChange로 엮어준다.
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
   const [plan, setPlan] = useState({
+    //plan은 쿼리 뮤테이션 post 요청을 할 때 객체로 묶어서 보내는 방법 사용하기 위해 만듬.
     name,
     title,
     content,
   });
-  // console.log("plan", plan);
 
+  //input에 들어온 각각의 값을 set해준다.
   const onChangeNameHandler = (e) => {
     setName(e.target.value);
     setPlan({ ...plan, name: e.target.value });
@@ -28,21 +29,35 @@ const WorkAdd = () => {
     setPlan({ ...plan, content: e.target.value });
   };
 
-  //plan추가 post 요청
-  const queryClient = useQueryClient();
+  //plan 추가 = onClick post 요청
   const addPlanMutation = useMutation(addPlanTodos, {
     onSuccess: () => {
-      queryClient.invalidateQueries(plan);
+      //성공했을 때 invalidation할 필요 없음: 1.R을 하지 않아서, 2.보여주지 않아서
       setName("");
       setTitle("");
       setContent("");
     },
   });
 
-  //plan 추가 변경 요청
   const onSubmitHandler = (e) => {
+    //form이라서 리로딩 방지를 위해 preventDefault
     e.preventDefault();
-    addPlanMutation.mutate(plan);
+    console.log(plan.name.length);
+
+    //유효성검증
+    if (
+      plan.name.length > 5 ||
+      plan.title.length > 50 ||
+      plan.content.length > 200
+    ) {
+      setName("");
+      setTitle("");
+      setContent("");
+      return alert("글자 수 조건을 맞춰서 다시 입력해 주세요");
+    } else {
+      //쿼리 mutation 사용 -> plan을 전달.
+      addPlanMutation.mutate(plan);
+    }
   };
 
   return (
