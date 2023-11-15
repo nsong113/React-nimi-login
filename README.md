@@ -1,5 +1,8 @@
 # 투두리스트 업그레이드 버전
 
+기존에 비동기 통신이 없던 투두리스트를 업그래이드시킴. 비동기통신 연습 목적.
+로그인과 회원가입은 실제 서버와 연동했고, 나머지는 mock server (json-server)와 연동했다.
+
 ## 사용 언어
 
 - js
@@ -139,3 +142,65 @@ try catch문으로 처리했다. 혹은 mutation에 onSuccess, onError를 사용
 ### 11. 애플리케이션의 상태 값들을 컴포넌트 간 어떤 방식으로 공유하셨나요?
 
 취지는 redux를 사용해보고 싶었지만,, 하다보니 props로 상태관리를 하고 있었다. 시간나면 RTK로 변경 예정
+
+기능 method url request response
+회원가입 post register "
+body
+id: string
+password: string" "201
+없음"
+로그인 post login "body
+id: string
+password: string" "201
+token: string
+{
+""token"": ""eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImtvYjIxMDAiLCJpYXQiOjE2NzI3NTUyMjMsImV4cCI6MTY3Mjc1NTI4M30.aVVgNMb69m4HQ_OxkJ9Rpd5or98OnEMU8SajJZvNnkk""
+}"
+유저인증확인 get user "header
+authorization: string
+ex) authorization : Bearer asdffsfsdfafljeope" "200
+message: string
+{message: “인증에 성공한 요청입니다.”}"
+todo추가 post todos "
+body
+plan : string" "{
+""name"": string,
+""title"": string,
+""content"": string,
+""id"": number
+}"
+todo조회 get todos - "{
+""name"": string,
+""title"": string,
+""content"": string,
+""id"": number
+}"
+todo편집 patch todos/:id "
+body
+content : string" "{
+""name"": string,
+""title"": string,
+""content"": string,
+""id"": number
+}"
+todo삭제 delete todos/:id - -
+comment추가 post comments "body
+name: string
+content: string" "{
+""name"": string,
+""content"": string,
+""id"": number
+}"
+comment조회 get comments - "{
+""name"": string,
+""content"": string,
+""id"": number
+}"
+comment편집 patch comments/:id "
+body
+content : string" "{
+""name"": string,
+""content"": string,
+""id"": number
+}"
+comment삭제 delete comments/:id - -
