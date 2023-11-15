@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useRef, useState } from "react";
 import { readCommend, addComment, deleteComment } from "../api/todosContent";
 import useInputValue from "../hooks/useInputValue";
-import WorkDetailComment
 
 //디테일페이지랑, 디테일페이지 수정이랑 같은 컴포넌트 공유 -> button으로 조건부 랜더링
 const WorkDetail = ({ button }) => {
