@@ -1,0 +1,5 @@
+{
+  "env": {
+    "VITE_APP_MOCK_SERVER": "https://3.38.191.164"
+  }
+}
