@@ -159,6 +159,7 @@ const ViewComment = ({ modalRef, id }) => {
   const onClickEditHandler = (id) => {
     //modalRef.current.classList.remove("show");
     // console.log(editTextAreaRef.current.);
+    //useRef로 사용해서
   };
 
   return (
@@ -187,6 +188,8 @@ const ViewComment = ({ modalRef, id }) => {
           onChange={onChangeContentHandler}
         />
       </div>
+
+      {/* 여기를 다른 파일 컴포넌트고 빼고 -> 불러와서 ref를 따로 따 */}
       {comments ? (
         comments.map((item) => {
           return (
@@ -194,7 +197,7 @@ const ViewComment = ({ modalRef, id }) => {
               <div className="flexComments">
                 <div className="viewCommentIS">
                   <p className="viewCommentIsTitle">{item.name}</p>
-                  <p className="vㅋiewCommentIsContents">{item.content}</p>
+                  <p className="viewCommentIsContents">{item.content}</p>
                 </div>
                 <div className="buttons">
                   <button
