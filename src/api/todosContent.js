@@ -6,7 +6,7 @@ import axios from "axios";
 const addPlanTodos = async (plan) => {
   try {
     const res = await axios.post(
-      `${import.meta.env.VITE_APP_MOCK_JIU_SERVER}/todos`,
+      `${import.meta.env.VITE_APP_GLICH_DEPLOY}/todos`,
       plan
     );
     const data = res.data;
@@ -22,7 +22,7 @@ const addPlanTodos = async (plan) => {
 const readPlanTodos = async () => {
   try {
     const res = await axios.get(
-      `${import.meta.env.VITE_APP_MOCK_JIU_SERVER}/todos`
+      `${import.meta.env.VITE_APP_GLICH_DEPLOY}/todos`
     );
 
     return res.data;
@@ -35,7 +35,7 @@ const readPlanTodos = async () => {
 const patchPlanTodos = async ({ id, stateData }) => {
   try {
     const res = await axios.patch(
-      `${import.meta.env.VITE_APP_MOCK_JIU_SERVER}/todos/${id}`,
+      `${import.meta.env.VITE_APP_GLICH_DEPLOY}/todos/${id}`,
       {
         content: stateData.content,
       }
@@ -49,7 +49,7 @@ const patchPlanTodos = async ({ id, stateData }) => {
 ////플랜 삭제 : delete
 const deleteTodos = async (id) => {
   const res = await axios.delete(
-    `${import.meta.env.VITE_APP_MOCK_JIU_SERVER}/todos/${id}`
+    `${import.meta.env.VITE_APP_GLICH_DEPLOY}/todos/${id}`
   );
   // return res.data;
 };
@@ -58,7 +58,7 @@ const deleteTodos = async (id) => {
 const readCommend = async () => {
   try {
     const { data } = await axios.get(
-      `${import.meta.env.VITE_APP_MOCK_JIU_SERVER}/comments`
+      `${import.meta.env.VITE_APP_GLICH_DEPLOY}/comments`
     );
     return data;
   } catch (error) {
@@ -70,7 +70,7 @@ const readCommend = async () => {
 const addComment = async ({ name, content }) => {
   try {
     const res = await axios.post(
-      `${import.meta.env.VITE_APP_MOCK_JIU_SERVER}/comments`,
+      `${import.meta.env.VITE_APP_GLICH_DEPLOY}/comments`,
       {
         name,
         content,
@@ -86,7 +86,7 @@ const addComment = async ({ name, content }) => {
 const editComment = async (id) => {
   try {
     const { data } = await axios.patch(
-      `${import.meta.env.VITE_APP_MOCK_JIU_SERVER}/comments/${id}`,
+      `${import.meta.env.VITE_APP_GLICH_DEPLOY}/comments/${id}`,
       {
         //수정할 내용
       }
@@ -101,7 +101,7 @@ const editComment = async (id) => {
 const deleteComment = async (id) => {
   try {
     const { data } = await axios.delete(
-      `${import.meta.env.VITE_APP_MOCK_JIU_SERVER}/comments/${id}`
+      `${import.meta.env.VITE_APP_GLICH_DEPLOY}/comments/${id}`
     );
     // return data;
   } catch (error) {
