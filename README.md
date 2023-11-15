@@ -42,10 +42,15 @@
 ---
 
 ## 배포 url
+https://react-nimi-login.vercel.app/register
+db랑 연동을 못시켰습니다. ㅠㅠㅠ 사진으로 대체합니다. 
 
 ## 미리보기
 
 <img src="./public/final1.png" width="60%"  ></img>
+<img src="./public/final2.png" width="60%"  ></img>
+<img src="./public/final3.png" width="60%"  ></img>
+<img src="./public/final4.png" width="60%"  ></img>
 <img src="./public/final5.png" width="60%"  ></img>
 
 
