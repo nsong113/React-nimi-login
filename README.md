@@ -8,7 +8,6 @@
   <br>
   <img src="./public/image 5.png" width="100%"  ></img>
 
-
 </details>
 
 ## 사용 언어
@@ -42,8 +41,9 @@
 ---
 
 ## 배포 url
+
 https://react-nimi-login.vercel.app/register
-db랑 연동을 못시켰습니다. ㅠㅠㅠ 사진으로 대체합니다. 
+db랑 연동을 못시켰습니다. ㅠㅠㅠ 사진으로 대체합니다.
 
 ## 미리보기
 
@@ -53,10 +53,10 @@ db랑 연동을 못시켰습니다. ㅠㅠㅠ 사진으로 대체합니다.
 <img src="./public/final4.png" width="60%"  ></img>
 <img src="./public/final5.png" width="60%"  ></img>
 
-
-
 ---
+
 # 과제 질문
+
 <details>
 <summary>특정 유저 (예: 비로그인 유저)의 페이지 접근을 제한하기 위한 전략이나 방식은 무엇이었나요?</summary>
   <br>
@@ -117,7 +117,6 @@ thunk 보다는 react Query를 사용...
 에러 처리의 용이 - 데브툴 제공
 isLoading, isError등의 통신 상태 관리 용이 - 보일러플레이트
 
-
 </details>
 
 <details>
@@ -128,7 +127,6 @@ isLoading, isError등의 통신 상태 관리 용이 - 보일러플레이트
 - JWT는 특히 사용자 인증과 관련된 정보를 토큰 형태로 안전하게 전달할 때 자주 사용
 - 구조: Header, Payload, Signiture
 
-
 </details>
 
 <details>
@@ -136,7 +134,6 @@ isLoading, isError등의 통신 상태 관리 용이 - 보일러플레이트
   <br>
   
 이 부분이 안되었다. 기술매니저님 호출 예정
-
 
 </details>
 
@@ -180,10 +177,31 @@ try catch문으로 처리했다. 혹은 mutation에 onSuccess, onError를 사용
 <details>
 <summary> Custom Hook을 구현하실 때 어떤 기능을 위해 사용하셨나요? 또한 Custom Hook을 사용함으로써 어떤 이점을 얻으셨나요?</summary>
   <br>
-아직 안했다. 이제 할 예정
+''''
+import { useState } from "react";
+
+const useInputValue = () => {
+//state
+const [value, setValue] = useState("");
+
+//handler
+const hadnler = (e) => {
+setValue(e.target.value);
+};
+
+return [value, hadnler];
+};
+export default useInputValue;
+''''
+
+''''
+//모달 내부 input 관리 state
+//custon hook 사용
+const [name, onChangeNameHandler] = useInputValue();
+const [content, onChangeContentHandler] = useInputValue();
+''''
 
 </details>
-
 
 <details>
 <summary> API 서버의 URL을 `.env` 파일을 사용하여 숨기는 이유는 무엇일까요?</summary>
@@ -210,4 +228,3 @@ try catch문으로 처리했다. 혹은 mutation에 onSuccess, onError를 사용
 취지는 redux를 사용해보고 싶었지만,, 하다보니 props로 상태관리를 하고 있었다. 시간나면 RTK로 변경 예정
 
 </details>
-

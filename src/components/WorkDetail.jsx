@@ -3,6 +3,7 @@ import { readPlanTodos, patchPlanTodos } from "../api/todosContent";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRef, useState } from "react";
 import { readCommend, addComment, deleteComment } from "../api/todosContent";
+import useInputValue from "../hooks/useInputValue";
 
 //디테일페이지랑, 디테일페이지 수정이랑 같은 컴포넌트 공유 -> button으로 조건부 랜더링
 const WorkDetail = ({ button }) => {
@@ -115,22 +116,14 @@ const WorkDetail = ({ button }) => {
 //슬라이드 모달 창
 const ViewComment = ({ modalRef, id }) => {
   //모달 내부 input 관리 state
-  const [name, setName] = useState("");
-  const [content, setContent] = useState("");
+  //custon hook 사용
+  const [name, onChangeNameHandler] = useInputValue();
+  const [content, onChangeContentHandler] = useInputValue();
 
   //ref로 dom 조작
   const closeModalHandler = () => {
     modalRef.current.classList.remove("show");
     modalRef.current.classList.add("hide");
-  };
-
-  //컴포넌트 내부 state관리
-  const onChangeNameHandler = (e) => {
-    setName(e.target.value);
-  };
-
-  const onChangeContentHandler = (e) => {
-    setContent(e.target.value);
   };
 
   //comment 조회 : 쿼리 get 요청
