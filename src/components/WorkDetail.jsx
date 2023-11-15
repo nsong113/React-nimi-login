@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useRef, useState } from "react";
 import { readCommend, addComment, deleteComment } from "../api/todosContent";
 import useInputValue from "../hooks/useInputValue";
+import WorkDetailComment
 
 //디테일페이지랑, 디테일페이지 수정이랑 같은 컴포넌트 공유 -> button으로 조건부 랜더링
 const WorkDetail = ({ button }) => {
@@ -190,38 +191,6 @@ const ViewComment = ({ modalRef, id }) => {
       </div>
 
       {/* 여기를 다른 파일 컴포넌트고 빼고 -> 불러와서 ref를 따로 따 */}
-      {comments ? (
-        comments.map((item) => {
-          return (
-            <div key={item.id}>
-              <div className="flexComments">
-                <div className="viewCommentIS">
-                  <p className="viewCommentIsTitle">{item.name}</p>
-                  <p className="viewCommentIsContents">{item.content}</p>
-                </div>
-                <div className="buttons">
-                  <button
-                    className="button"
-                    onClick={() => onClickEditHandler(item.id)}
-                  >
-                    수정
-                  </button>
-                  <button
-                    className="button"
-                    onClick={() => onClickDeleteCommentHandler(item.id)}
-                  >
-                    삭제
-                  </button>
-                </div>
-              </div>
-            </div>
-          );
-        })
-      ) : (
-        <div className="viewCommentNo">
-          <p>댓글이 없네요.</p>
-        </div>
-      )}
 
       <div className="workDetailViewComments" onClick={closeModalHandler}>
         눌러서 댓글내리기
