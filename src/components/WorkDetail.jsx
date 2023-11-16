@@ -164,14 +164,20 @@ const ViewComment = ({ modalRef, id }) => {
     commentDeleteMutation.mutate(id);
   };
 
+  //에딧 뮤데이션
+  // const commentEditMutation = useMutation;
+
   ////////////////////////////
   ////////////////////////////
   ////////////////////////////
 
   //데이터 수정 -> 아직 안함...
-  const onClickEditHandler = (commentId) => {
-    setClickedCommentId(commentId);
-    onClickDeleteCommentHandler.mutate({});
+  const onClickEditHandler = ({ id, commentInput }) => {
+    //스테이트끌어올리기
+    console.log("id", id);
+    console.log("commentInput", commentInput);
+    // setClickedCommentId(commentId);
+    onClickDeleteCommentHandler.mutate({ commentInput, id });
   };
   ////////////////////////////
   ////////////////////////////
@@ -206,38 +212,18 @@ const ViewComment = ({ modalRef, id }) => {
 
       {comments ? (
         comments.map((item) => {
+          const { id, name, content } = item;
           return (
-            <div key={item.id}>
-              <div className="flexComments">
-                <div className="viewCommentIS">
-                  <p className="viewCommentIsTitle">{item.name}</p>
-
-                  {/*  */}
-
-                  <WorkDetailComment
-                    content={item.content}
-                    //ref={commentRef} //넘어가는거 자체가 안됨=>forwardRef 공부해보기
-                    isEdit={clickedCommentId === item.id}
-                  />
-
-                  {/*  */}
-                </div>
-                <div className="buttons">
-                  <button
-                    className="button"
-                    onClick={() => onClickEditHandler(item.id)}
-                  >
-                    수정
-                  </button>
-                  <button
-                    className="button"
-                    onClick={() => onClickDeleteCommentHandler(item.id)}
-                  >
-                    삭제
-                  </button>
-                </div>
-              </div>
-            </div>
+            <WorkDetailComment
+              key={id}
+              content={content}
+              //ref={commentRef} //넘어가는거 자체가 안됨=>forwardRef 공부해보기
+              isEdit={clickedCommentId === id}
+              onClickEditHandler={onClickEditHandler}
+              onClickDeleteCommentHandler={onClickDeleteCommentHandler}
+              id={id}
+              name={name}
+            />
           );
         })
       ) : (
