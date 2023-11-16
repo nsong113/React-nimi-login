@@ -7,7 +7,7 @@
 
 https://react-nimi-login.vercel.app/register
 db랑 연동은 안되었고 json-server랑 연동되었습니다.과제에 제출한 링크 말고 이 링크로 봐주세요!
-로그인, 회원가입은 로그아웃 해야 볼 수 있습니다. 
+로그인, 회원가입은 로그아웃 해야 볼 수 있습니다.
 
 <details>
 <summary>API 명세서</summary>
@@ -45,8 +45,6 @@ db랑 연동은 안되었고 json-server랑 연동되었습니다.과제에 제�
 - scss사용하여 스타일링 (mixin, vars, reset)
 
 ---
-
-
 
 ## 미리보기
 
@@ -180,7 +178,7 @@ try catch문으로 처리했다. 혹은 mutation에 onSuccess, onError를 사용
 <details>
 <summary> Custom Hook을 구현하실 때 어떤 기능을 위해 사용하셨나요? 또한 Custom Hook을 사용함으로써 어떤 이점을 얻으셨나요?</summary>
   <br>
-''''
+````
 import { useState } from "react";
 
 const useInputValue = () => {
@@ -195,14 +193,17 @@ setValue(e.target.value);
 return [value, hadnler];
 };
 export default useInputValue;
-''''
 
-''''
+```
+
+```
+
 //모달 내부 input 관리 state
 //custon hook 사용
 const [name, onChangeNameHandler] = useInputValue();
 const [content, onChangeContentHandler] = useInputValue();
-''''
+
+```
 
 </details>
 
@@ -225,9 +226,5 @@ const [content, onChangeContentHandler] = useInputValue();
 - 유지보수 : 필요할 때 .env만 수정하면 됨
 
 </details>
-<details>
-<summary> 애플리케이션의 상태 값들을 컴포넌트 간 어떤 방식으로 공유하셨나요?</summary>
-  <br>
-취지는 redux를 사용해보고 싶었지만,, 하다보니 props로 상태관리를 하고 있었다. 시간나면 RTK로 변경 예정
 
-</details>
+```
