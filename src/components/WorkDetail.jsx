@@ -120,6 +120,8 @@ const ViewComment = ({ modalRef, id }) => {
   const [name, onChangeNameHandler] = useInputValue();
   const [content, onChangeContentHandler] = useInputValue();
 
+  const commentRef = useRef();
+
   //ref로 dom 조작
   const closeModalHandler = () => {
     modalRef.current.classList.remove("show");
@@ -157,9 +159,11 @@ const ViewComment = ({ modalRef, id }) => {
 
   //데이터 수정 -> 아직 안함...
   const onClickEditHandler = (id) => {
-    //modalRef.current.classList.remove("show");
-    // console.log(editTextAreaRef.current.);
-    //useRef로 사용해서
+    const sp1 = document.createElement("input");
+    const sp2 = commentRef.current;
+    const ParentDiv = sp2.parentNode;
+    console.log(ParentDiv);
+    ParentDiv.replaceChild(sp1, sp2);
   };
 
   return (
@@ -188,9 +192,41 @@ const ViewComment = ({ modalRef, id }) => {
           onChange={onChangeContentHandler}
         />
       </div>
-
       {/* 여기를 다른 파일 컴포넌트고 빼고 -> 불러와서 ref를 따로 따 */}
-
+      {comments ? (
+        comments.map((item) => {
+          return (
+            <div key={item.id}>
+              <div className="flexComments">
+                <div className="viewCommentIS">
+                  <p className="viewCommentIsTitle">{item.name}</p>
+                  <p className="viewCommentIsContents" ref={commentRef}>
+                    {item.content}
+                  </p>
+                </div>
+                <div className="buttons">
+                  <button
+                    className="button"
+                    onClick={() => onClickEditHandler(item.id)}
+                  >
+                    수정
+                  </button>
+                  <button
+                    className="button"
+                    onClick={() => onClickDeleteCommentHandler(item.id)}
+                  >
+                    삭제
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        })
+      ) : (
+        <div className="viewCommentNo">
+          <p>댓글이 없네요.</p>
+        </div>
+      )}
       <div className="workDetailViewComments" onClick={closeModalHandler}>
         눌러서 댓글내리기
       </div>

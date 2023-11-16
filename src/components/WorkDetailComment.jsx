@@ -1,44 +1,30 @@
-import React from "react";
+// import React, { useRef } from "react";
+// import { useMutation, useQueryClient } from "react-query";
+// import { deleteComment, editComment } from "../api/todosContent";
 
-const WorkDetailComment = ({comments,onClickEditHandler,onClickDeleteCommentHandler}) => {
-  return (
-    {comments ? (
-        comments.map((item) => {
-          return (
-            <div key={item.id}>
-              <div className="flexComments">
-                <div className="viewCommentIS">
-                  <p className="viewCommentIsTitle">{item.name}</p>
-                  <p className="viewCommentIsContents">{item.content}</p>
-                </div>
-                <div className="buttons">
-                  <button
-                    className="button"
-                    onClick={() => onClickEditHandler(item.id)}
-                  >
-                    수정
-                  </button>
-                  <button
-                    className="button"
-                    onClick={() => onClickDeleteCommentHandler(item.id)}
-                  >
-                    삭제
-                  </button>
-                </div>
-              </div>
-            </div>
-          );
-        })
-      ) : (
-        <div className="viewCommentNo">
-          <p>댓글이 없네요.</p>
-        </div>
-      )}
-  )
+// const WorkDetailComment = ({
+//   name,
+//   content,
+//   id,
+//   commentRef,
+//   onClickEditHandler,
+// }) => {
+//   return (
+//     <div className="flexComments">
+//       <div className="viewCommentIS">
+//         <p className="viewCommentIsTitle">{name}</p>
+//         <p className="viewCommentIsContents" ref={commentRef}>
+//           {content}
+//         </p>
+//       </div>
+//       <div className="buttons">
+//         <WorkDetailComment onClickEditHandler={onClickEditHandler} id={id} />
+//         <button className="button" onClick={() => onClickEditHandler(id)}>
+//           수정
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
 
-
-
-  
-};
-
-export default WorkDetailComment;
+// export default WorkDetailComment;
