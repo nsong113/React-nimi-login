@@ -179,8 +179,9 @@ try catch문으로 처리했다. 혹은 mutation에 onSuccess, onError를 사용
 <details>
 <summary> Custom Hook을 구현하실 때 어떤 기능을 위해 사용하셨나요? 또한 Custom Hook을 사용함으로써 어떤 이점을 얻으셨나요?</summary>
   <br>
-````
-import { useState } from "react";
+
+  <pre><code>
+  import { useState } from "react";
 
 const useInputValue = () => {
 //state
@@ -194,17 +195,18 @@ setValue(e.target.value);
 return [value, hadnler];
 };
 export default useInputValue;
+  </code></pre>
 
-```
+<br/>
 
-```
+<pre><code>
 
 //모달 내부 input 관리 state
 //custon hook 사용
 const [name, onChangeNameHandler] = useInputValue();
 const [content, onChangeContentHandler] = useInputValue();
 
-```
+</code></pre>
 
 </details>
 
@@ -228,5 +230,6 @@ const [content, onChangeContentHandler] = useInputValue();
 
 </details>
 
+```
 
 ```
