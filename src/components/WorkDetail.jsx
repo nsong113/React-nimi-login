@@ -216,7 +216,7 @@ const ViewComment = ({ modalRef, id }) => {
 
                   <WorkDetailComment
                     content={item.content}
-                    ref={commentRef} //넘어가는거 자체가 안됨=>forwardRef 공부해보기
+                    //ref={commentRef} //넘어가는거 자체가 안됨=>forwardRef 공부해보기
                     isEdit={clickedCommentId === item.id}
                   />
 
