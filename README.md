@@ -5,7 +5,8 @@
 
 ## 배포 url
 
-https://react-nimi-login.vercel.app/register
+https://react-nimi-login-7f8s.vercel.app
+<br/>
 db랑 연동은 안되었고 json-server랑 연동되었습니다.과제에 제출한 링크 말고 이 링크로 봐주세요!
 로그인, 회원가입은 로그아웃 해야 볼 수 있습니다.
 
