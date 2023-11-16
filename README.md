@@ -156,6 +156,7 @@ try catch문으로 처리했다. 혹은 mutation에 onSuccess, onError를 사용
 <details>
 <summary> Form에 유효성 검증 기능을 적용</summary>
   <br>
+  
 ```
 //유효성검증
     if (
@@ -226,5 +227,6 @@ const [content, onChangeContentHandler] = useInputValue();
 - 유지보수 : 필요할 때 .env만 수정하면 됨
 
 </details>
+
 
 ```
