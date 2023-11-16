@@ -3,6 +3,12 @@
 기존에 비동기 통신이 없던 투두리스트를 업그래이드시킴. 비동기통신 연습 목적.
 로그인과 회원가입은 실제 서버와 연동했고, 나머지는 mock server (json-server)와 연동했다.
 
+## 배포 url
+
+https://react-nimi-login.vercel.app/register
+db랑 연동은 안되었고 json-server랑 연동되었습니다.과제에 제출한 링크 말고 이 링크로 봐주세요!
+로그인, 회원가입은 로그아웃 해야 볼 수 있습니다. 
+
 <details>
 <summary>API 명세서</summary>
   <br>
@@ -40,10 +46,7 @@
 
 ---
 
-## 배포 url
 
-https://react-nimi-login.vercel.app/register
-db랑 연동을 못시켰습니다. ㅠㅠㅠ 사진으로 대체합니다.
 
 ## 미리보기
 
