@@ -229,7 +229,3 @@ const [content, onChangeContentHandler] = useInputValue();
 - 유지보수 : 필요할 때 .env만 수정하면 됨
 
 </details>
-
-```
-
-```
