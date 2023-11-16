@@ -15,6 +15,9 @@ const Works = () => {
     readPlanTodos,
     {
       enabled: true,
+      onSuccess: (data) => {
+        console.log("todosData", data);
+      },
       onSettled: (data, error) => {
         if (isFetching) {
           console.log("페칭중입니다.");

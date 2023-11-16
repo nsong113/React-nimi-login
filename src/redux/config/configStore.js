@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import todosSlice from "../modules/todosSlice";
+import commentSlice from "../modules/commentSlice";
 
 const store = configureStore({
   reducer: {
-    //
-    todosSlice,
+    //리듀서들...
+    commentSlice,
   },
 });
 

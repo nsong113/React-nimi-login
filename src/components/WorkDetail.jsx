@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useRef, useState } from "react";
 import { readCommend, addComment, deleteComment } from "../api/todosContent";
 import useInputValue from "../hooks/useInputValue";
+import WorkDetailComment from "./WorkDetailComment";
 
 //디테일페이지랑, 디테일페이지 수정이랑 같은 컴포넌트 공유 -> button으로 조건부 랜더링
 const WorkDetail = ({ button }) => {
@@ -119,6 +120,12 @@ const ViewComment = ({ modalRef, id }) => {
   //custon hook 사용
   const [name, onChangeNameHandler] = useInputValue();
   const [content, onChangeContentHandler] = useInputValue();
+  // const [editCOmment, setEditComment] = useState();
+  // const [isEditClicked, setIsEditClicked] = useState({
+  //   commentId: "",
+  //   isEdit: false,
+  // });
+  const [clickedCommentId, setClickedCommentId] = useState(-1);
 
   const commentRef = useRef();
 
@@ -157,14 +164,18 @@ const ViewComment = ({ modalRef, id }) => {
     commentDeleteMutation.mutate(id);
   };
 
+  ////////////////////////////
+  ////////////////////////////
+  ////////////////////////////
+
   //데이터 수정 -> 아직 안함...
-  const onClickEditHandler = (id) => {
-    const sp1 = document.createElement("input");
-    const sp2 = commentRef.current;
-    const ParentDiv = sp2.parentNode;
-    console.log(ParentDiv);
-    ParentDiv.replaceChild(sp1, sp2);
+  const onClickEditHandler = (commentId) => {
+    setClickedCommentId(commentId);
+    onClickDeleteCommentHandler.mutate({});
   };
+  ////////////////////////////
+  ////////////////////////////
+  ////////////////////////////
 
   return (
     <div className="commentModal " ref={modalRef}>
@@ -192,7 +203,7 @@ const ViewComment = ({ modalRef, id }) => {
           onChange={onChangeContentHandler}
         />
       </div>
-      {/* 여기를 다른 파일 컴포넌트고 빼고 -> 불러와서 ref를 따로 따 */}
+
       {comments ? (
         comments.map((item) => {
           return (
@@ -200,9 +211,16 @@ const ViewComment = ({ modalRef, id }) => {
               <div className="flexComments">
                 <div className="viewCommentIS">
                   <p className="viewCommentIsTitle">{item.name}</p>
-                  <p className="viewCommentIsContents" ref={commentRef}>
-                    {item.content}
-                  </p>
+
+                  {/*  */}
+
+                  <WorkDetailComment
+                    content={item.content}
+                    ref={commentRef} //넘어가는거 자체가 안됨=>forwardRef 공부해보기
+                    isEdit={clickedCommentId === item.id}
+                  />
+
+                  {/*  */}
                 </div>
                 <div className="buttons">
                   <button
